@@ -14,6 +14,11 @@ export class GameScene extends Phaser.Scene {
         super(sceneConfig)
     }
 
+    public preload() {
+        this.load.image('tiles', './assets/cloud_tileset.png')
+        this.load.tilemapTiledJSON('cloud-city-map', './assets/cloud_city_map.json')
+    }
+
     public create() {
         const cloudCityTilemap = this.make.tilemap({ key: 'cloud-city-map' })
         cloudCityTilemap.addTilesetImage('Cloud City', 'tiles')
@@ -29,10 +34,7 @@ export class GameScene extends Phaser.Scene {
 
     public update() { }
 
-    public preload() {
-        this.load.image('tiles', './assets/cloud_tileset.png')
-        this.load.tilemapTiledJSON('cloud-city-map', './assets/cloud_city_map.json')
-    }
+
 }
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
