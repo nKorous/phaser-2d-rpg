@@ -14,16 +14,14 @@ const CANVAS_WIDTH = 720
 const CANVAS_HEIGHT = 528
 
 export class GameScene extends Phaser.Scene {
-    constructor(
-        private gridControls: GridControls,
-        private gridPhysics: GridPhysics
-    ) {
+    static readonly TILE_SIZE = 48
+
+    private gridControls: GridControls
+    private gridPhysics: GridPhysics
+
+    constructor() {
         super(sceneConfig)
     }
-
-
-
-    static readonly TILE_SIZE = 48
 
     public preload() {
         this.load.image('tiles', './assets/cloud_tileset.png')
@@ -31,7 +29,7 @@ export class GameScene extends Phaser.Scene {
 
         this.load.spritesheet('player', './assets/sprites.png', {
             frameWidth: 26,
-            frameHeight: 32
+            frameHeight: 36
         })
     }
 
@@ -54,14 +52,14 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.roundPixels = true
         const player = new Player(playerSprite, new Phaser.Math.Vector2(6, 6))
 
-        this.gridPhysics = new GridPhysics(player)
+        this.gridPhysics = new GridPhysics(player, cloudCityTilemap)
+
         this.gridControls = new GridControls(this.input, this.gridPhysics)
 
-        this.createPlayerAnimation(Direction.UP, 37, 38)
-        this.createPlayerAnimation(Direction.RIGHT, 78, 80)
-        this.createPlayerAnimation(Direction.DOWN, 0, 1)
-        this.createPlayerAnimation(Direction.LEFT, 66, 68)
-
+        this.createPlayerAnimation(Direction.UP, 37, 39)
+        this.createPlayerAnimation(Direction.RIGHT, 25, 28)
+        this.createPlayerAnimation(Direction.DOWN, 0, 3)
+        this.createPlayerAnimation(Direction.LEFT, 13, 16)
     }
 
     public update(_time: number, delta: number) {

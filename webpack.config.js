@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
     entry: {
         app: "./server.ts",
+        vendors: ["phaser"]
     },
 
     module: {
@@ -22,7 +23,7 @@ module.exports = {
     },
 
     output: {
-        filename: "app.js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist")
     },
 
