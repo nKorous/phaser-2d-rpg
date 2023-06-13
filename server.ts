@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser'
+import { Player } from './player'
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     active: false,
@@ -14,9 +15,16 @@ export class GameScene extends Phaser.Scene {
         super(sceneConfig)
     }
 
+    static readonly TILE_SIZE = 48
+
     public preload() {
         this.load.image('tiles', './assets/cloud_tileset.png')
         this.load.tilemapTiledJSON('cloud-city-map', './assets/cloud_city_map.json')
+
+        this.load.spritesheet('player', './assets/sprites.png', { 
+            frameWidth: 26,
+            frameHeight: 32
+        })
     }
 
     public create() {
@@ -30,6 +38,13 @@ export class GameScene extends Phaser.Scene {
                 layer.scale = 3
             }
         }
+
+        const playerSprite = this.add.sprite(0, 0, 'player')
+        playerSprite.setDepth(2)
+        playerSprite.scale = 3
+        this.cameras.main.startFollow(playerSprite)
+        this.cameras.main.roundPixels = true
+        const player = new Player(playerSprite, new Phaser.Math.Vector2(6, 6))
     }
 
     public update() { }
